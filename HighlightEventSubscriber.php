@@ -2,7 +2,7 @@
 
 namespace Carew\Plugin\Highlight;
 
-use Carew\Events;
+use Carew\Event\Events;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class HighlightEventSubscriber implements EventSubscriberInterface
