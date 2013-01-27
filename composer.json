@@ -1,21 +1,26 @@
 {
-    "name": "carew/plugin-highlight",
-    "description": "Highlight plugin for carew",
-    "license": "MIT",
-    "homepage": "http://carew.github.com/",
-    "keywords": ["carew"],
-    "authors": [
+    "name"        : "carew/plugin-highlight",
+    "description" : "Highlight plugin for carew",
+    "license"     : "MIT",
+    "homepage"    : "http://carew.github.com/",
+    "keywords"    : ["carew"],
+    "authors"     : [
         {
-            "name": "Grégoire Pineau",
-            "email": "lyrixx@lyrixx.info"
+            "name"  : "Grégoire Pineau",
+            "email" : "lyrixx@lyrixx.info"
         }
     ],
     "require": {
-        "carew/carew": "~1.5",
-        "easybook/geshi": "dev-master@dev"
+        "carew/carew"    : "~1.5",
+        "easybook/geshi" : "dev-master@dev"
     },
     "autoload": {
         "psr-0": { "Carew\\Plugin\\Highlight": ""}
     },
-    "target-dir": "Carew/Plugin/Highlight"
+    "target-dir": "Carew/Plugin/Highlight",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    }
 }
