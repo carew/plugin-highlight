@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "carew/carew"    : "~1.5",
+        "carew/carew"    : "~1.6",
         "easybook/geshi" : "dev-master@dev"
     },
     "autoload": {

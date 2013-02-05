@@ -3,6 +3,7 @@
 namespace Carew\Plugin\Highlight;
 
 use Carew\Event\Events;
+use Carew\Document;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class HighlightEventSubscriber implements EventSubscriberInterface
@@ -14,22 +15,29 @@ class HighlightEventSubscriber implements EventSubscriberInterface
         $this->highlighter = $highlighter;
     }
 
+    public function onDocument($event)
+    {
+        $document  = $event->getSubject();
+
+        if (Document::TYPE_POST == $document->getType()) {
+            $this->highlight($document);
+        } elseif (Document::TYPE_PAGE == $document->getType()) {
+            $this->highlight($document);
+        }
+    }
+
     public static function getSubscribedEvents()
     {
         return array(
-            Events::PAGE => array(
-                array('highlight', static::getPriority()),
+            Events::DOCUMENT => array(
+                array('onDocument', 256),
             ),
-            Events::POST => array(
-                array('highlight', static::getPriority()),
-            )
         );
     }
 
-    public function highlight($event)
+    private function highlight($document)
     {
-        $subject = $event->getSubject();
-        $body = $subject->getBody();
+        $body = $document->getBody();
 
         if (preg_match('/^(\s|\n)+$/', $body)) {
             return;
@@ -37,7 +45,7 @@ class HighlightEventSubscriber implements EventSubscriberInterface
 
         $body = preg_replace_callback('#<pre><code>(.*)</code></pre>#sU', array($this,'doHighlight'), $body);
 
-        $subject->setBody($body);
+        $document->setBody($body);
     }
 
     private function doHighlight($matches)
@@ -54,10 +62,5 @@ class HighlightEventSubscriber implements EventSubscriberInterface
         $code = trim($code);
 
         return $this->highlighter->highlight($code, $language);
-    }
-
-    public static function getPriority()
-    {
-        return 125;
     }
 }
